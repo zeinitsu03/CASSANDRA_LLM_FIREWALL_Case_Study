@@ -14,10 +14,54 @@ the tools:
 
 | Problem with the dashboard | What replaced it |
 |---|---|
-| Assumed the visitor knew what prompt injection is | A six-part story that starts with an ordinary email |
+| Assumed the visitor knew what prompt injection is | A five-part story that starts with an ordinary email |
 | Numbers without context | Each number sits next to a sentence explaining it, derived from the live data |
 | Generic visual style | An editorial design system with a serif reading face and a mythological motif |
 | Static screens | Live demos: reveal hidden text, run the pipeline, compare the layers |
+
+## Version 3: a product landing page, in true black
+
+The explainer taught well but opened like an essay: a visitor had to scroll before seeing the product
+do anything. The third iteration puts a product landing page in front of the story and moves the whole
+interface to a true-black theme.
+
+### Research
+
+I studied the landing pages developers and security teams judge products by, and took one idea from
+each:
+
+| Site | What it does well | What CASSANDRA took |
+|---|---|---|
+| [Lakera](https://www.lakera.ai) | A security product that proves itself with a live demo and hard numbers | The live scanner card in the hero and the proof strip under it |
+| [Linear](https://linear.app) | Near-black surfaces, hairline borders, restrained accent, headings with a soft gradient | Gradient headings, 1-pixel top highlights on cards, a pointer-following spotlight on the feature grid |
+| [Vercel](https://vercel.com) | Pure `#000` with high-contrast white, a white primary button | The true-black canvas and the white-on-black primary action |
+| [Resend](https://resend.com) | Leads with a code block showing how little code is needed | "Add it in a few lines": copyable Python, HTTP and CLI tabs |
+| [Raycast](https://www.raycast.com) | Shows the real product UI, not an illustration | The hero card is the real engine, not a mock-up |
+| [Stripe](https://stripe.com) | A closing band that turns attention into action | The dark call-to-action band leading to the arena |
+
+### Why true black
+
+- **It fits the subject.** A security tool reads as serious on black; the Aegean-blue accent and the
+  red, amber and teal verdicts stand out without shouting.
+- **It saves power.** On OLED screens `#000` pixels are switched off.
+- **Depth without shadows.** Shadows are invisible on black, so elevation comes from hairline borders,
+  a faint white gradient on cards, a 1-pixel highlight along their top edge, and soft coloured glows
+  behind the product card and the calls to action.
+
+The light theme was kept, but as a choice rather than a default: a button in the header switches
+themes and the browser remembers it. The status colours were re-validated against the new, darker card
+surface (`#0a0a0b`).
+
+### What the landing page is made of
+
+| Section | Purpose |
+|---|---|
+| Hero | One-line promise, two actions (scanner, arena), and the live scanner card cycling through four real inputs |
+| Proof strip | Recall, false-alarm rate, scan time and technique count, read from the model card |
+| Capabilities | Six one-sentence features with icons, lit by a spotlight that follows the pointer |
+| The story | The five-part explainer, unchanged, now framed as "how it works, step by step" |
+| For developers | Copyable integration code in three forms |
+| Closing band | The invitation to the arena |
 
 ## Principles
 
@@ -28,7 +72,8 @@ the tools:
    stat tiles say what the metric means, and the scoring formula is one click away.
 4. **Be honest about failure.** The explainer shows a prompt that beats both layers, and the report shows
    the weakest generalisation results.
-5. **Every element earns its place.** No decorative gradients, glows or emoji.
+5. **Every element earns its place.** One accent colour, glows only behind the live product and the
+   calls to action, no emoji.
 
 ## Design system
 
@@ -44,15 +89,23 @@ All fonts are self-hosted, so the strict Content-Security-Policy allows no third
 
 ### Colour
 
-A warm paper background with ink-coloured text, one accent (Aegean blue) for interaction and bronze for
-the myth motif and "hidden" things. Light and dark themes each have their own palette, chosen per theme
-rather than inverted.
+The default theme is true black with near-white text; the alternative is a warm paper background with
+ink-coloured text. Both use one accent (Aegean blue) for interaction and bronze for the myth motif and
+"hidden" things. Each theme has its own palette, chosen per theme rather than inverted.
+
+| Token | Black theme (default) | Light theme |
+|---|---|---|
+| Page | `#000000` | `#fbfaf7` |
+| Card | `#0a0a0b` + a faint white gradient | `#ffffff` |
+| Hairline border | `#1f1f24` | `#e6e2d9` |
+| Text / secondary / muted | `#ededef` / `#a1a1aa` / `#7a7a84` | `#17191e` / `#545a66` / `#8b909a` |
+| Accent | `#8ea2ff` | `#2f4bd0` |
 
 Verdict colours carry meaning, so they were **validated for colour-vision deficiency** with a palette
 checker (lightness band, chroma, perceptual distance under protanopia, deuteranopia and tritanopia,
 contrast against the surface):
 
-| Status | Light theme | Dark theme |
+| Status | Light theme | Black theme |
 |---|---|---|
 | allow | `#0f8a7a` | `#1d9e8f` |
 | flag | `#b07a0e` | `#bd8a1e` |
@@ -66,7 +119,7 @@ protanopes. The final teal/amber/red passes, and because red and amber sit close
 
 A deliberately small set: a page layout, a card panel, a risk meter, a status badge, a verdict report
 and a findings table, plus the explainer's section and figure layout. Each has its own co-located
-stylesheet; the whole CSS is under 9 KB gzipped, with no CSS framework.
+stylesheet; the whole CSS is about 11 KB gzipped, with no CSS framework. Icons come from Lucide.
 
 ### The signature details
 
@@ -86,6 +139,8 @@ Animation is used only where it explains something:
 | Highlights fading in on attack spans | Where the evidence is |
 | Verdict badge "stamping" in | The decision |
 | Typing indicator in the arena | The guardian is responding |
+| Inputs typed into the hero's scanner card | The product working on real attacks, one after another |
+| Spotlight following the pointer across the capability cards | Which feature is under the reader's attention |
 
 All motion is CSS, runs once when a section scrolls into view, and is **disabled entirely** when the
 operating system's reduced-motion setting is on (the pipeline then shows all stages immediately).

@@ -8,7 +8,7 @@ every change has to pass.
 | Layer | What | Result |
 |---|---|---|
 | Backend unit and integration tests | pytest, 144 tests | All pass · 99% branch coverage (≥ 90% enforced) |
-| Frontend component tests | Vitest + Testing Library, 20 tests | All pass |
+| Frontend component tests | Vitest + Testing Library, 23 tests | All pass |
 | End-to-end browser check | 35 scripted steps through every page in a real browser | 35 / 35 pass, no console errors |
 | Container check | The production image run with the hardened Compose settings | Healthy; all smoke checks pass |
 | Static analysis | ruff (incl. security rules), mypy `--strict`, oxlint, tsc strict, Prettier | Clean |

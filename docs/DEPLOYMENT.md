@@ -1,6 +1,6 @@
 # Deployment and operations
 
-CASSANDRA ships as one container that serves the API and the web app on port 7860.
+CASSANDRA ships as one container that serves the API and the web app on `$PORT` (7860 by default).
 
 ## The container image
 
@@ -22,11 +22,27 @@ uses about 100 MB of memory.
 |---|---|---|
 | Local | One `make` command builds the UI and serves everything | For development and demos |
 | Docker Compose | `docker compose up` | Hardened: read-only root filesystem, all Linux capabilities dropped, `no-new-privileges` |
-| Hugging Face Spaces | Deployed automatically after CI passes on `main` | Free hosting; the workflow declares the platform's proxy hop so rate limiting works per visitor |
+| Render | A `render.yaml` blueprint; redeploys after CI passes on `main` | The public live demo on a free plan; builds from the private repository |
 | Any container host | The published image from GitHub Container Registry | Tagged releases include an SBOM and build provenance |
 
 The hardened Compose configuration was verified by running it: the container reported healthy with a
 read-only filesystem and no capabilities, and every smoke check passed.
+
+## The live demo on Render
+
+The demo at <https://cassandra-llm-firewall.onrender.com> runs on Render's free plan. A blueprint file in
+the repository describes the service, and Render builds the same Dockerfile from the private repository,
+so publishing the demo never means publishing the code. An earlier plan used Hugging Face Spaces, but a
+public Space exposes its source, which defeats the point of a private implementation.
+
+| Setting | Value | Why |
+|---|---|---|
+| Runtime | Docker, built by Render | One image everywhere: local, Compose, releases, demo |
+| Plan | Free | Sleeps after 15 minutes without traffic; the first request then takes about a minute |
+| Health check | `/api/health` | Traffic moves to a new deploy only once it answers |
+| Deploys | After CI passes on `main` | A red build never reaches the demo |
+| `CASSANDRA_TRUSTED_PROXY_HOPS` | `1` | Render's proxy appends the visitor's address, so each visitor gets their own rate limit |
+| `PORT` | Set by Render | The start command binds to whatever port the platform assigns |
 
 ## Configuration
 

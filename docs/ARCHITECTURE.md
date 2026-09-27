@@ -100,11 +100,11 @@ Requests pass through, in order:
 
 | Area | Approach |
 |---|---|
-| Structure | Pages (explainer, scanner, arena, report), explainer sections with live demos, a small set of shared components, and tiny hooks for fetching, routing and scroll-triggered motion |
-| Styling | CSS modules co-located with each component, one token file for light and dark themes; no CSS framework, under 9 KB gzipped |
+| Structure | Pages (landing and explainer, scanner, arena, report), landing sections, explainer sections with live demos, a small set of shared components, and tiny hooks for fetching, routing and scroll-triggered motion |
+| Styling | CSS modules co-located with each component, one token file for a true-black default theme and a light theme; no CSS framework, about 11 KB gzipped |
 | Data | Typed API client mirroring the backend's schemas; nothing on screen is hard-coded |
 | Motion | CSS transitions only; sections animate once when scrolled into view; all motion disabled under reduced-motion settings |
-| Dependencies | React and self-hosted fonts at runtime; no router, state or component library |
+| Dependencies | React, Lucide icons and self-hosted fonts at runtime; no router, state or component library |
 
 ## Deployment
 
@@ -113,7 +113,7 @@ Requests pass through, in order:
 | Local | One command builds the UI and serves UI and API together |
 | Docker | Multi-stage image, non-root user, health check; ~615 MB, ~100 MB RAM idle |
 | Compose | Read-only root filesystem, all Linux capabilities dropped, `no-new-privileges` |
-| Hugging Face Spaces | Deployed automatically after CI passes; the workflow declares the platform's proxy hop |
+| Render (live demo) | A blueprint builds the image from the private repository after CI passes; it declares the platform's proxy hop |
 | Releases | Version tags publish an image to GitHub Container Registry with SBOM and build provenance |
 
 ## CI/CD

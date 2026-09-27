@@ -2,18 +2,60 @@
 
 CASSANDRA ships as one web app with four pages, plus an API, a CLI and a Python library that share the
 same engine. This tour walks through every page. Every number and verdict in these screenshots came
-from the running system.
+from the running system. Try it yourself at the
+[live demo](https://cassandra-llm-firewall.onrender.com).
 
-## 1. The explainer (home page)
+## 1. The landing page
 
-The home page is an interactive article, *The attack inside the gift*, that teaches prompt injection
-from scratch and shows how each layer of CASSANDRA works. It is written for someone who has never heard
-the term, and every demo in it calls the live API.
+The home page opens like a product page: in a few seconds it should say what CASSANDRA is, prove that
+it works, and show how to use it.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/screenshots/explainer-hero-dark.png">
-  <img src="../assets/screenshots/explainer-hero.png" alt="Explainer hero">
-</picture>
+### Hero: the product, running
+
+The headline states the job in one line. Beside it, a scanner card types four real inputs one after
+another (a direct override, a polite paraphrase, an attack hidden in base64 and a harmless history
+question) and shows the live verdict for each: the risk, both layers' scores, the matched techniques
+and anything that was decoded. All four are scanned in one call to the batch endpoint when the page
+loads. Dots under the card let the visitor jump between examples; with reduced motion turned on, the
+text appears at once instead of being typed.
+
+![Landing hero](../assets/screenshots/landing-hero.png)
+
+### Proof strip
+
+Four numbers a reviewer can check: attacks caught and false alarms (read live from the shipped model
+card, so they cannot drift from the evaluation), scan time, and the number of mapped techniques.
+Below them, the frameworks the rules map to and the datasets the model was trained on.
+
+![Proof strip](../assets/screenshots/landing-proof.png)
+
+### What it does
+
+Six capabilities, each in one sentence. Moving the pointer over the grid lights up the cards and their
+borders around it, the way Linear and Vercel do on their feature grids.
+
+![Capabilities](../assets/screenshots/landing-capabilities.png)
+
+### For developers
+
+Tabs with the Python library, an HTTP request and the CLI, each with a copy button. The CLI output shown
+is the real output of the command.
+
+![Integration snippets](../assets/screenshots/landing-integrate.png)
+
+### Closing call to action
+
+The last band invites the visitor into the arena, with links to the scanner and this case study.
+
+![Closing band](../assets/screenshots/landing-band.png)
+
+## 2. The explainer
+
+Between the capabilities and the code, the home page carries an interactive article, *The attack inside
+the gift*, that teaches prompt injection from scratch and shows how each layer of CASSANDRA works. It is
+written for someone who has never heard the term, and every demo in it calls the live API.
+
+![Explainer header](../assets/screenshots/explainer-story.png)
 
 ### Section 1: a perfectly ordinary email
 
@@ -64,13 +106,7 @@ explanations of what they mean and where the model struggles.
 
 ![Numbers](../assets/screenshots/explainer-numbers.png)
 
-### Section 6: your turn
-
-Calls to action for the arena, the scanner and this case study.
-
-![Call to action](../assets/screenshots/explainer-cta.png)
-
-## 2. The scanner
+## 3. The scanner
 
 A workspace for scanning any text. The left column holds the input and the verdict; the right column
 holds one-click example attacks and a session log.
@@ -96,7 +132,7 @@ attributed the finding to the decoded payload.
 Useful details: `Ctrl + Enter` scans, example buttons are disabled while a scan runs, the character
 counter shows the limit, and the session log restores any earlier scan with one click.
 
-## 3. The red-team arena
+## 4. The red-team arena
 
 A game with four gates. A guardian holds a password and has been told never to share it; each gate puts
 a stronger CASSANDRA configuration in front of (and behind) it:
@@ -120,7 +156,7 @@ The guardian is simulated so the game stays free and deterministic. It refuses b
 common manipulation, understands obfuscated text like a real model, and can answer in several forms, so
 creative bypasses work the way they would against a real LLM. Every gate was verified winnable.
 
-## 4. The model report
+## 5. The model report
 
 The model card as a page: headline metrics with plain-language explanations, each layer on its own, the
 confusion matrix, leave-one-dataset-out generalisation, the training data with licences, and known
@@ -128,30 +164,32 @@ limitations.
 
 ![Model report](../assets/screenshots/report.png)
 
-## Dark mode
+## Themes
 
-Every page has a dark theme that follows the operating system. It uses its own validated colour steps,
-not an automatic inversion.
+Every page is true black (`#000`) by default, which also lets OLED screens switch those pixels off. The
+sun button in the header switches to a warm light theme, and the choice is remembered in the browser.
+Each theme has its own validated colour steps rather than an automatic inversion.
 
-![Pipeline in dark mode](../assets/screenshots/explainer-pipeline-dark.png)
+![Landing, light theme](../assets/screenshots/landing-hero-light.png)
 
 <details>
-<summary><b>More dark-mode screenshots</b></summary>
+<summary><b>More light-theme screenshots</b></summary>
 
-![Scanner, dark](../assets/screenshots/scanner-dark.png)
+![Scanner, light](../assets/screenshots/scanner-light.png)
 
-![Report, dark](../assets/screenshots/report-dark.png)
+![Report, light](../assets/screenshots/report-light.png)
 
 </details>
 
 ## Mobile
 
-The layout works down to phone width with no horizontal scrolling: sidebars move below the main column,
-and the findings table becomes one block per finding.
+The layout works down to phone width with no horizontal scrolling: the hero stacks above the live card,
+the navigation moves to its own row beside the logo and theme button, sidebars move below the main
+column, and the findings table becomes one block per finding.
 
-| Explainer | Scanner verdict |
+| Landing | Scanner verdict |
 |---|---|
-| ![Mobile explainer](../assets/screenshots/mobile-explainer.png) | ![Mobile scanner](../assets/screenshots/mobile-scanner.png) |
+| ![Mobile landing](../assets/screenshots/mobile-landing.png) | ![Mobile scanner](../assets/screenshots/mobile-scanner.png) |
 
 ## Beyond the web app
 

@@ -12,10 +12,11 @@ a red-team arena lets visitors try to beat the firewall.
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose%20%2B%20GHCR-2496ED?logo=docker&logoColor=white)
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/screenshots/explainer-hero-dark.png">
-  <img src="assets/screenshots/explainer-hero.png" alt="The interactive explainer: 'The attack inside the gift'">
-</picture>
+### [▶ Live demo: cassandra-llm-firewall.onrender.com](https://cassandra-llm-firewall.onrender.com)
+
+<sub>Hosted on a free plan: the first visit after a quiet spell takes about a minute while the server wakes up.</sub>
+
+![The landing page: a live scanner card blocking a prompt-injection attack](assets/screenshots/landing-hero.png)
 
 > **This is a public case study.** The source code is in a private repository. This repo documents
 > the architecture, security design, engineering decisions and screenshots of the working system.
@@ -33,7 +34,7 @@ a red-team arena lets visitors try to beat the firewall.
 | **Decision** | Explainable evidence scoring (noisy-OR) into `allow` / `flag` / `block` |
 | **Results** | 99.4% precision, 98.4% recall, 1.7% false alarms on 2,933 held-out prompts; honest leave-one-dataset-out results alongside |
 | **Speed** | About 1 ms per scan on a CPU; no GPU, no paid API, no text leaves the server |
-| **Tests** | 144 backend tests on Python 3.11 and 3.12 (99% coverage), 20 frontend tests, a 35-step end-to-end browser check, container smoke tests in CI |
+| **Tests** | 144 backend tests on Python 3.11 and 3.12 (99% coverage), 23 frontend tests, a 35-step end-to-end browser check, container smoke tests in CI |
 | **Role** | Independent portfolio project: research, design, ML, backend, frontend and DevOps |
 
 ## The problem
@@ -137,11 +138,21 @@ argument for checking the model's output too.
 
 ## Screenshots
 
+### Landing page
+A true-black product page: a hero that types real attacks into a live scanner card, the model's
+headline numbers, what the engine does, copyable integration code, and a call to try the arena.
+
+![Proof strip](assets/screenshots/landing-proof.png)
+
+![Capabilities, with the pointer-following spotlight](assets/screenshots/landing-capabilities.png)
+
+![Integration snippets](assets/screenshots/landing-integrate.png)
+
 ### Interactive explainer
-A six-part story with live demos: the hidden email, a diagram of trusted and untrusted text merging
+A five-part story with live demos: the hidden email, a diagram of trusted and untrusted text merging
 into one context, the animated pipeline, the two-layer comparison and the model's real metrics.
 
-![Explainer](assets/screenshots/explainer-hero.png)
+![Explainer](assets/screenshots/explainer-story.png)
 
 ### Scanner
 Verdict, per-layer scores, the obfuscation that was removed, the highlighted evidence and every
@@ -156,7 +167,7 @@ exactly why.
 ![Arena](assets/screenshots/arena-blocked.png)
 
 <details>
-<summary><b>More screenshots</b>: model report, a decoded attack, dark mode, mobile</summary>
+<summary><b>More screenshots</b>: model report, a decoded attack, light theme, mobile</summary>
 
 ### Model report
 Metrics per layer, confusion matrix, generalisation results, training data and limitations, read
@@ -174,17 +185,18 @@ Three sources with three trust levels arrive at the model as one stream of token
 
 ![Context diagram](assets/screenshots/explainer-context.png)
 
-### Dark mode
+### Light theme
+Black is the default; one click in the header switches to a warm light theme, remembered per browser.
 
-![Pipeline, dark](assets/screenshots/explainer-pipeline-dark.png)
+![Landing, light](assets/screenshots/landing-hero-light.png)
 
-![Scanner, dark](assets/screenshots/scanner-dark.png)
+![Scanner, light](assets/screenshots/scanner-light.png)
 
 ### Mobile
 
-| Explainer | Scanner verdict |
+| Landing | Scanner verdict |
 |---|---|
-| ![Mobile explainer](assets/screenshots/mobile-explainer.png) | ![Mobile scanner](assets/screenshots/mobile-scanner.png) |
+| ![Mobile landing](assets/screenshots/mobile-landing.png) | ![Mobile scanner](assets/screenshots/mobile-scanner.png) |
 
 </details>
 
@@ -208,6 +220,8 @@ A full page-by-page walkthrough is in the [Product tour](docs/PRODUCT_TOUR.md).
   shipped weights byte for byte.
 - **Supply chain.** Lockfiles, GitHub Actions pinned to commit SHAs, `pip-audit`/`npm audit`, CodeQL,
   Dependabot, and SBOM plus provenance on released images.
+- **Private source, public demo.** Render builds the Docker image straight from the private
+  repository, so the live site never requires publishing the code.
 - **Accessible by default.** Status colours validated for colour-vision deficiency and never used
   alone; keyboard navigation; every animation disabled under reduced-motion settings.
 
@@ -215,7 +229,8 @@ A full page-by-page walkthrough is in the [Product tour](docs/PRODUCT_TOUR.md).
 
 | Removed or replaced | Reason |
 |---|---|
-| A dark "security console" dashboard | It looked like a generic template and explained nothing. Replaced by an interactive explainer that teaches the attack with live demos. |
+| A dark "security console" dashboard | It looked like a generic template and explained nothing. Replaced by an interactive explainer that teaches the attack with live demos, and later a product landing page in a deliberate true-black design. |
+| Hugging Face Spaces hosting | A public Space exposes its source. Replaced by Render, which builds from the private repository. |
 | Trusting the first `X-Forwarded-For` entry | That entry is written by the client, so anyone could dodge rate limits. Replaced by counting trusted proxy hops from the right. |
 | One rate-limit bucket behind a hosting proxy | Every visitor looked like the same IP. The deploy now declares its proxy hop. |
 | A transformer classifier | Would need a GPU or paid API, and the generalisation gap is a data problem a bigger model would inherit. The engine keeps a swappable interface instead. |
@@ -231,9 +246,9 @@ More on these decisions: [Design decisions & Q&A](docs/DESIGN_DECISIONS.md)
 |---|---|
 | Engine & API | Python 3.11, FastAPI, Pydantic, Uvicorn |
 | ML | scikit-learn (logistic regression on hashed n-grams), NumPy, SciPy; datasets: deepset, jailbreak-classification, SPML, Lakera Gandalf |
-| Frontend | React 19, TypeScript (strict), Vite, CSS modules, self-hosted Source Serif 4 and IBM Plex |
+| Frontend | React 19, TypeScript 7 (strict), Vite, CSS modules, Lucide icons, self-hosted Source Serif 4 and IBM Plex |
 | Quality | pytest, mypy `--strict`, ruff, Vitest, Testing Library, oxlint, Prettier, Playwright |
-| Delivery | Docker (multi-stage, non-root, read-only), Docker Compose, GitHub Actions, GitHub Container Registry, Hugging Face Spaces |
+| Delivery | Docker (multi-stage, non-root, read-only), Docker Compose, GitHub Actions, GitHub Container Registry, Render |
 | Security | OWASP LLM Top 10, MITRE ATLAS, CodeQL, pip-audit, npm audit, Dependabot |
 
 ## Known limitations
@@ -258,9 +273,9 @@ recruiters, engineers, security reviewers and data scientists.
 | [Model and evaluation](docs/ML_EVALUATION.md) | Data, training, tuning, every metric, generalisation, error analysis, reproducibility |
 | [Security design](docs/SECURITY_DESIGN.md) | Threat model for protected apps and for CASSANDRA itself, controls, hardening roadmap |
 | [Interfaces](docs/INTERFACES.md) | The HTTP API with real requests and responses, the CLI, the Python library, configuration |
-| [UI and UX design](docs/UI_UX_DESIGN.md) | Why an explainer, the design system, colour validation, motion, accessibility |
+| [UI and UX design](docs/UI_UX_DESIGN.md) | Research and inspiration, the true-black theme, the design system, colour validation, motion, accessibility |
 | [Testing and quality](docs/TESTING_AND_QUALITY.md) | Test suites per module, end-to-end checks, fuzzing, benchmarks, CI/CD |
-| [Deployment and operations](docs/DEPLOYMENT.md) | The container, hardened Compose, Hugging Face Spaces, releases, operations |
+| [Deployment and operations](docs/DEPLOYMENT.md) | The container, hardened Compose, the Render live demo, releases, operations |
 | [Design decisions & Q&A](docs/DESIGN_DECISIONS.md) | Trade-offs, what changed during the build, answers to common questions |
 | [Demo walkthrough](docs/DEMO_WALKTHROUGH.md) | The 10-minute demo script I use for reviews |
 | [Roadmap and limitations](docs/ROADMAP.md) | Known limits and what comes next |
