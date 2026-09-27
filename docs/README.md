@@ -26,7 +26,7 @@ private; these documents describe what it does, how it was built and why.
 | [Interfaces: API, CLI, library](INTERFACES.md) | Every endpoint with real requests and responses, the CLI and its exit codes, library usage |
 | [UI and UX design](UI_UX_DESIGN.md) | Why an explainer, the design system, colour validation, motion, accessibility, the redesign |
 | [Testing and quality](TESTING_AND_QUALITY.md) | Test suites per module, end-to-end checks, fuzzing, benchmarks, CI/CD, static analysis |
-| [Deployment and operations](DEPLOYMENT.md) | Docker, Compose hardening, the Render live demo, releases, configuration, operations |
+| [Deployment and operations](DEPLOYMENT.md) | Docker, Compose hardening, Render hosting, releases, configuration, operations |
 | [Design decisions & Q&A](DESIGN_DECISIONS.md) | Trade-offs, what changed during the build, answers to common questions |
 | [Demo walkthrough](DEMO_WALKTHROUGH.md) | The 10-minute demo script |
 | [Roadmap and limitations](ROADMAP.md) | Known limits and what comes next, in priority order |

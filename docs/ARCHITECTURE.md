@@ -113,7 +113,7 @@ Requests pass through, in order:
 | Local | One command builds the UI and serves UI and API together |
 | Docker | Multi-stage image, non-root user, health check; ~615 MB, ~100 MB RAM idle |
 | Compose | Read-only root filesystem, all Linux capabilities dropped, `no-new-privileges` |
-| Render (live demo) | A blueprint builds the image from the private repository after CI passes; it declares the platform's proxy hop |
+| Render (optional demo hosting) | A blueprint builds the image from the private repository after CI passes; it declares the platform's proxy hop |
 | Releases | Version tags publish an image to GitHub Container Registry with SBOM and build provenance |
 
 ## CI/CD

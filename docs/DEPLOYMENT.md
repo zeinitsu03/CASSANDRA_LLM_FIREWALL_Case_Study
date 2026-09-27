@@ -22,18 +22,19 @@ uses about 100 MB of memory.
 |---|---|---|
 | Local | One `make` command builds the UI and serves everything | For development and demos |
 | Docker Compose | `docker compose up` | Hardened: read-only root filesystem, all Linux capabilities dropped, `no-new-privileges` |
-| Render | A `render.yaml` blueprint; redeploys after CI passes on `main` | The public live demo on a free plan; builds from the private repository |
+| Render | A `render.yaml` blueprint; redeploys after CI passes on `main` | Ready for a public demo on a free plan; builds from the private repository |
 | Any container host | The published image from GitHub Container Registry | Tagged releases include an SBOM and build provenance |
 
 The hardened Compose configuration was verified by running it: the container reported healthy with a
 read-only filesystem and no capabilities, and every smoke check passed.
 
-## The live demo on Render
+## Hosting a demo on Render
 
-The demo at <https://cassandra-llm-firewall.onrender.com> runs on Render's free plan. A blueprint file in
-the repository describes the service, and Render builds the same Dockerfile from the private repository,
-so publishing the demo never means publishing the code. An earlier plan used Hugging Face Spaces, but a
-public Space exposes its source, which defeats the point of a private implementation.
+The app is not publicly hosted at the moment; the case study shows recordings of it running instead.
+It is ready to be: a blueprint file in the repository describes a service on Render's free plan, and
+Render builds the same Dockerfile from the private repository, so hosting a demo never means publishing
+the code. An earlier plan used Hugging Face Spaces, but a public Space exposes its source, which
+defeats the point of a private implementation.
 
 | Setting | Value | Why |
 |---|---|---|

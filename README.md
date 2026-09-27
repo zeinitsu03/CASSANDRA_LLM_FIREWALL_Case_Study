@@ -12,11 +12,9 @@ a red-team arena lets visitors try to beat the firewall.
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose%20%2B%20GHCR-2496ED?logo=docker&logoColor=white)
 
-### [▶ Live demo: cassandra-llm-firewall.onrender.com](https://cassandra-llm-firewall.onrender.com)
+![The landing page: a live scanner card typing real attacks and showing the engine's verdicts](assets/screenshots/tour-hero.gif)
 
-<sub>Hosted on a free plan: the first visit after a quiet spell takes about a minute while the server wakes up.</sub>
-
-![The landing page: a live scanner card blocking a prompt-injection attack](assets/screenshots/landing-hero.png)
+<sub>Recorded from the running app. Watch the <a href="#a-50-second-tour">50-second tour</a> below.</sub>
 
 > **This is a public case study.** The source code is in a private repository. This repo documents
 > the architecture, security design, engineering decisions and screenshots of the working system.
@@ -138,6 +136,12 @@ argument for checking the model's output too.
 
 ## Screenshots
 
+### A 50-second tour
+The landing page, the hidden-instruction email, the pipeline decoding a base64 attack, the scanner, a
+round of the arena, and the model report, recorded from the running app.
+
+![A tour of the app: landing page, explainer demos, scanner, arena and model report](assets/screenshots/tour.gif)
+
 ### Landing page
 A true-black, monochrome product page where colour only ever marks evidence: a hero that types real
 attacks into a live scanner card, the evaluation in one sentence, what the engine does as a
@@ -219,8 +223,8 @@ A full page-by-page walkthrough is in the [Product tour](docs/PRODUCT_TOUR.md).
   shipped weights byte for byte.
 - **Supply chain.** Lockfiles, GitHub Actions pinned to commit SHAs, `pip-audit`/`npm audit`, CodeQL,
   Dependabot, and SBOM plus provenance on released images.
-- **Private source, public demo.** Render builds the Docker image straight from the private
-  repository, so the live site never requires publishing the code.
+- **Private source, deployable demo.** A Render blueprint builds the Docker image straight from the
+  private repository, so hosting a demo never requires publishing the code.
 - **Accessible by default.** Status colours validated for colour-vision deficiency and never used
   alone; keyboard navigation; every animation disabled under reduced-motion settings.
 
@@ -275,7 +279,7 @@ recruiters, engineers, security reviewers and data scientists.
 | [Interfaces](docs/INTERFACES.md) | The HTTP API with real requests and responses, the CLI, the Python library, configuration |
 | [UI and UX design](docs/UI_UX_DESIGN.md) | Research and inspiration, the true-black theme, the design system, colour validation, motion, accessibility |
 | [Testing and quality](docs/TESTING_AND_QUALITY.md) | Test suites per module, end-to-end checks, fuzzing, benchmarks, CI/CD |
-| [Deployment and operations](docs/DEPLOYMENT.md) | The container, hardened Compose, the Render live demo, releases, operations |
+| [Deployment and operations](docs/DEPLOYMENT.md) | The container, hardened Compose, Render hosting, releases, operations |
 | [Design decisions & Q&A](docs/DESIGN_DECISIONS.md) | Trade-offs, what changed during the build, answers to common questions |
 | [Demo walkthrough](docs/DEMO_WALKTHROUGH.md) | The 10-minute demo script I use for reviews |
 | [Roadmap and limitations](docs/ROADMAP.md) | Known limits and what comes next |

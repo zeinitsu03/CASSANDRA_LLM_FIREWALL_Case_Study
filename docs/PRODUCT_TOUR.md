@@ -2,8 +2,8 @@
 
 CASSANDRA ships as one web app with four pages, plus an API, a CLI and a Python library that share the
 same engine. This tour walks through every page. Every number and verdict in these screenshots came
-from the running system. Try it yourself at the
-[live demo](https://cassandra-llm-firewall.onrender.com).
+from the running system. For the whole thing in motion, watch the
+[50-second tour](../README.md#a-50-second-tour).
 
 ## 1. The landing page
 
