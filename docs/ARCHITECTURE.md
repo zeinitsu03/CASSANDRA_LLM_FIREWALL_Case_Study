@@ -101,10 +101,10 @@ Requests pass through, in order:
 | Area | Approach |
 |---|---|
 | Structure | Pages (landing and explainer, scanner, arena, report), landing sections, explainer sections with live demos, a small set of shared components, and tiny hooks for fetching, routing and scroll-triggered motion |
-| Styling | CSS modules co-located with each component, one token file for a true-black default theme and a light theme; no CSS framework, about 11 KB gzipped |
+| Styling | CSS modules co-located with each component, one token file for a true-black default theme and a light theme; no CSS framework, about 10 KB gzipped |
 | Data | Typed API client mirroring the backend's schemas; nothing on screen is hard-coded |
 | Motion | CSS transitions only; sections animate once when scrolled into view; all motion disabled under reduced-motion settings |
-| Dependencies | React, Lucide icons and self-hosted fonts at runtime; no router, state or component library |
+| Dependencies | React and self-hosted fonts at runtime; no router, state or component library |
 
 ## Deployment
 

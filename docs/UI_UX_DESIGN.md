@@ -22,46 +22,43 @@ the tools:
 ## Version 3: a product landing page, in true black
 
 The explainer taught well but opened like an essay: a visitor had to scroll before seeing the product
-do anything. The third iteration puts a product landing page in front of the story and moves the whole
-interface to a true-black theme.
+do anything. The third iteration put a product landing page in front of the story and moved the
+interface to a true-black theme, borrowing from the pages developers and security teams judge products
+by: a live product in the hero (Lakera, Raycast), a pure `#000` canvas with a white primary action
+(Vercel), and a code block showing how little integration takes (Resend).
 
-### Research
+It also borrowed their decoration: gradient headings, glows, a pointer-following spotlight, a stat-tile
+banner and a grid of icon cards. That turned out to be a mistake, and version 4 undid it.
 
-I studied the landing pages developers and security teams judge products by, and took one idea from
-each:
+## Version 4: removing the template tells
 
-| Site | What it does well | What CASSANDRA took |
+Reviewed cold, version 3 looked generated. So I checked it against published lists of the patterns
+that make a site read as AI-generated
+([Developers Digest](https://www.developersdigest.tech/blog/ai-design-slop-and-how-to-spot-it),
+[The Fountain Institute](https://www.thefountaininstitute.com/blog/signs-vibe-coded-ui),
+[21st.dev](https://21st.dev/blog/website-not-look-ai-generated)) and fixed every one that applied:
+
+| Tell | What version 3 had | What replaced it |
 |---|---|---|
-| [Lakera](https://www.lakera.ai) | A security product that proves itself with a live demo and hard numbers | The live scanner card in the hero and the proof strip under it |
-| [Linear](https://linear.app) | Near-black surfaces, hairline borders, restrained accent, headings with a soft gradient | Gradient headings, 1-pixel top highlights on cards, a pointer-following spotlight on the feature grid |
-| [Vercel](https://vercel.com) | Pure `#000` with high-contrast white, a white primary button | The true-black canvas and the white-on-black primary action |
-| [Resend](https://resend.com) | Leads with a code block showing how little code is needed | "Add it in a few lines": copyable Python, HTTP and CLI tabs |
-| [Raycast](https://www.raycast.com) | Shows the real product UI, not an illustration | The hero card is the real engine, not a mock-up |
-| [Stripe](https://stripe.com) | A closing band that turns attention into action | The dark call-to-action band leading to the arena |
+| Purple-blue gradient text, serif italic accent word | "*before*" in a blue-violet gradient; gradient-filled headings | Solid headings; hierarchy from size and weight only |
+| Glows and coloured shadows | Glows behind the hero, the product card and the buttons | None. Depth comes from 1px borders and contrast |
+| Badge above the headline | A pill reading "Prompt-injection firewall for LLM apps" | Removed; the headline says it |
+| Stat banner row | Four stat tiles under the hero | One sentence of evidence in the hero, with the numbers read live from the model card |
+| Identical feature cards with an icon on top | Six icon cards in a 3×2 grid | A specification list: a short name and one specific, checkable paragraph per capability |
+| Coloured stripe on blocks | Bronze or status-coloured left edges in four places | A tinted background, a dashed outline for hidden text, or plain hairlines |
+| Pills and rounded everything | Pill buttons, pill tabs, pill chips | 6px controls, 10px panels, 4px chips; underline tabs and navigation |
+| The same icon set everywhere | Lucide icons on every card and button | No icon library; words instead |
+| Decorative background | A masked grid pattern behind the hero | Plain black |
+| Numbered steps | "01–05" labels over each explainer section | Removed; the headings carry the story |
+| Generic copy | "Undoes obfuscation", "Runs anywhere" | Claims with numbers: five decoded payloads, four languages, 19,548 prompts, a 32-document batch |
 
-### Why true black
+The deeper change is one rule for colour: **colour is evidence**. The interface is ink on paper (white
+on black by default), and colour appears only where it means something: teal, amber and red for
+verdicts, bronze for hidden or decoded text. A visitor learns in seconds that anything coloured is
+something the engine found. The rules are written down in a `DESIGN.md` next to the frontend code,
+so later changes don't drift back to template defaults.
 
-- **It fits the subject.** A security tool reads as serious on black; the Aegean-blue accent and the
-  red, amber and teal verdicts stand out without shouting.
-- **It saves power.** On OLED screens `#000` pixels are switched off.
-- **Depth without shadows.** Shadows are invisible on black, so elevation comes from hairline borders,
-  a faint white gradient on cards, a 1-pixel highlight along their top edge, and soft coloured glows
-  behind the product card and the calls to action.
-
-The light theme was kept, but as a choice rather than a default: a button in the header switches
-themes and the browser remembers it. The status colours were re-validated against the new, darker card
-surface (`#0a0a0b`).
-
-### What the landing page is made of
-
-| Section | Purpose |
-|---|---|
-| Hero | One-line promise, two actions (scanner, arena), and the live scanner card cycling through four real inputs |
-| Proof strip | Recall, false-alarm rate, scan time and technique count, read from the model card |
-| Capabilities | Six one-sentence features with icons, lit by a spotlight that follows the pointer |
-| The story | The five-part explainer, unchanged, now framed as "how it works, step by step" |
-| For developers | Copyable integration code in three forms |
-| Closing band | The invitation to the arena |
+The light theme stays one click away, and the choice is remembered in the browser.
 
 ## Principles
 
@@ -72,8 +69,8 @@ surface (`#0a0a0b`).
    stat tiles say what the metric means, and the scoring formula is one click away.
 4. **Be honest about failure.** The explainer shows a prompt that beats both layers, and the report shows
    the weakest generalisation results.
-5. **Every element earns its place.** One accent colour, glows only behind the live product and the
-   calls to action, no emoji.
+5. **Every element earns its place.** No gradients, glows, emoji or icon-per-item; colour only where it
+   is evidence.
 
 ## Design system
 
@@ -90,16 +87,20 @@ All fonts are self-hosted, so the strict Content-Security-Policy allows no third
 ### Colour
 
 The default theme is true black with near-white text; the alternative is a warm paper background with
-ink-coloured text. Both use one accent (Aegean blue) for interaction and bronze for the myth motif and
-"hidden" things. Each theme has its own palette, chosen per theme rather than inverted.
+dark ink. Interaction (buttons, links, tabs, focus) uses ink rather than a brand hue; colour is reserved
+for verdicts and, in bronze, for hidden text. Each theme has its own palette, chosen per theme rather
+than inverted.
 
 | Token | Black theme (default) | Light theme |
 |---|---|---|
 | Page | `#000000` | `#fbfaf7` |
-| Card | `#0a0a0b` + a faint white gradient | `#ffffff` |
-| Hairline border | `#1f1f24` | `#e6e2d9` |
-| Text / secondary / muted | `#ededef` / `#a1a1aa` / `#7a7a84` | `#17191e` / `#545a66` / `#8b909a` |
-| Accent | `#8ea2ff` | `#2f4bd0` |
+| Panel | `#0c0c0e` | `#ffffff` |
+| Hairline border | `#232328` | `#e2ded4` |
+| Text / secondary / muted | `#f2f2f3` / `#b0b0b8` / `#8e8e98` | `#17191e` / `#4c525d` / `#626873` |
+| Interaction | the text colour | the text colour |
+| Hidden text | bronze `#d9a45a` | bronze `#9a6417` |
+
+Muted text was darkened or lightened until it clears WCAG AA (4.5:1) on both backgrounds.
 
 Verdict colours carry meaning, so they were **validated for colour-vision deficiency** with a palette
 checker (lightness band, chroma, perceptual distance under protanopia, deuteranopia and tritanopia,
@@ -119,7 +120,7 @@ protanopes. The final teal/amber/red passes, and because red and amber sit close
 
 A deliberately small set: a page layout, a card panel, a risk meter, a status badge, a verdict report
 and a findings table, plus the explainer's section and figure layout. Each has its own co-located
-stylesheet; the whole CSS is about 11 KB gzipped, with no CSS framework. Icons come from Lucide.
+stylesheet; the whole CSS is about 10 KB gzipped, with no CSS framework and no icon library.
 
 ### The signature details
 
@@ -140,7 +141,6 @@ Animation is used only where it explains something:
 | Verdict badge "stamping" in | The decision |
 | Typing indicator in the arena | The guardian is responding |
 | Inputs typed into the hero's scanner card | The product working on real attacks, one after another |
-| Spotlight following the pointer across the capability cards | Which feature is under the reader's attention |
 
 All motion is CSS, runs once when a section scrolls into view, and is **disabled entirely** when the
 operating system's reduced-motion setting is on (the pipeline then shows all stages immediately).

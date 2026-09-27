@@ -139,12 +139,11 @@ argument for checking the model's output too.
 ## Screenshots
 
 ### Landing page
-A true-black product page: a hero that types real attacks into a live scanner card, the model's
-headline numbers, what the engine does, copyable integration code, and a call to try the arena.
+A true-black, monochrome product page where colour only ever marks evidence: a hero that types real
+attacks into a live scanner card, the evaluation in one sentence, what the engine does as a
+specification list, copyable integration code, and a call to try the arena.
 
-![Proof strip](assets/screenshots/landing-proof.png)
-
-![Capabilities, with the pointer-following spotlight](assets/screenshots/landing-capabilities.png)
+![Capabilities as a specification list](assets/screenshots/landing-capabilities.png)
 
 ![Integration snippets](assets/screenshots/landing-integrate.png)
 
@@ -229,7 +228,8 @@ A full page-by-page walkthrough is in the [Product tour](docs/PRODUCT_TOUR.md).
 
 | Removed or replaced | Reason |
 |---|---|
-| A dark "security console" dashboard | It looked like a generic template and explained nothing. Replaced by an interactive explainer that teaches the attack with live demos, and later a product landing page in a deliberate true-black design. |
+| A dark "security console" dashboard | It looked like a generic template and explained nothing. Replaced by an interactive explainer that teaches the attack with live demos, and later a product landing page in a deliberate, monochrome true-black design. |
+| Gradients, glows, icon cards and a stat banner | Checked against published lists of AI-generated design tells and removed; colour is now reserved for evidence. See [UI and UX design](docs/UI_UX_DESIGN.md#version-4-removing-the-template-tells). |
 | Hugging Face Spaces hosting | A public Space exposes its source. Replaced by Render, which builds from the private repository. |
 | Trusting the first `X-Forwarded-For` entry | That entry is written by the client, so anyone could dodge rate limits. Replaced by counting trusted proxy hops from the right. |
 | One rate-limit bucket behind a hosting proxy | Every visitor looked like the same IP. The deploy now declares its proxy hop. |
@@ -246,7 +246,7 @@ More on these decisions: [Design decisions & Q&A](docs/DESIGN_DECISIONS.md)
 |---|---|
 | Engine & API | Python 3.11, FastAPI, Pydantic, Uvicorn |
 | ML | scikit-learn (logistic regression on hashed n-grams), NumPy, SciPy; datasets: deepset, jailbreak-classification, SPML, Lakera Gandalf |
-| Frontend | React 19, TypeScript 7 (strict), Vite, CSS modules, Lucide icons, self-hosted Source Serif 4 and IBM Plex |
+| Frontend | React 19, TypeScript 7 (strict), Vite, CSS modules, self-hosted Source Serif 4 and IBM Plex |
 | Quality | pytest, mypy `--strict`, ruff, Vitest, Testing Library, oxlint, Prettier, Playwright |
 | Delivery | Docker (multi-stage, non-root, read-only), Docker Compose, GitHub Actions, GitHub Container Registry, Render |
 | Security | OWASP LLM Top 10, MITRE ATLAS, CodeQL, pip-audit, npm audit, Dependabot |

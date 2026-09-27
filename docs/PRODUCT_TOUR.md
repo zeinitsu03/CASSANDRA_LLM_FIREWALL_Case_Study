@@ -12,7 +12,9 @@ it works, and show how to use it.
 
 ### Hero: the product, running
 
-The headline states the job in one line. Beside it, a scanner card types four real inputs one after
+The headline states the job in one line. Under it, one sentence gives the evaluation: how many held-out
+prompts, how many attacks were caught and how many harmless prompts were wrongly flagged, read live from
+the shipped model card so it can never drift from the evaluation. Beside it, a scanner card types four real inputs one after
 another (a direct override, a polite paraphrase, an attack hidden in base64 and a harmless history
 question) and shows the live verdict for each: the risk, both layers' scores, the matched techniques
 and anything that was decoded. All four are scanned in one call to the batch endpoint when the page
@@ -21,18 +23,11 @@ text appears at once instead of being typed.
 
 ![Landing hero](../assets/screenshots/landing-hero.png)
 
-### Proof strip
-
-Four numbers a reviewer can check: attacks caught and false alarms (read live from the shipped model
-card, so they cannot drift from the evaluation), scan time, and the number of mapped techniques.
-Below them, the frameworks the rules map to and the datasets the model was trained on.
-
-![Proof strip](../assets/screenshots/landing-proof.png)
-
 ### What it does
 
-Six capabilities, each in one sentence. Moving the pointer over the grid lights up the cards and their
-borders around it, the way Linear and Vercel do on their feature grids.
+Six capabilities as a specification list: a short name on the left, one specific paragraph on the
+right. Every claim can be checked: the number of decoded payloads, the languages the rules cover, the
+size of the training set, the paraphrase the classifier catches (with its real score), the batch size.
 
 ![Capabilities](../assets/screenshots/landing-capabilities.png)
 
@@ -45,9 +40,9 @@ is the real output of the command.
 
 ### Closing call to action
 
-The last band invites the visitor into the arena, with links to the scanner and this case study.
+The page ends with an invitation into the arena, with links to the scanner and this case study.
 
-![Closing band](../assets/screenshots/landing-band.png)
+![Closing section](../assets/screenshots/landing-closing.png)
 
 ## 2. The explainer
 
